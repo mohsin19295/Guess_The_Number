@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Number Guessing Game</title>
+
+    <style>
+      main {
+        border: 1px solid #000;
+        width: 50%;
+        max-width: 400px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 1rem;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      main > div > * {
+        height: 1.3rem;
+        outline: none;
+        border: 0;
+        border-radius: 5px;
+      }
+
+      main > div > input,
+      #btn {
+        border: 1px solid #000;
+        height: 100%;
+        padding: 5px 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h2>Guess the number between 1 to 100</h2>
+      <h3></h3>
+      <div>
+        <input type="number" placeholder="Enter a number" />
+        <button id="btn">Click</button>
+      </div>
+      <h4></h4>
+    </main>
+
+    <script>
+      const btn = document.getElementById("btn");
+      const input = document.querySelector("input");
+      const h3 = document.querySelector("h3");
+      const h4 = document.querySelector("h4");
+
+      let random = Math.floor(Math.random() * 100);
+      let count = 0;
+
+      const playGame = () => {
+        if (!input.value) {
+          h3.innerHTML = "Please enter the number";
+          return;
+        }
+        count++;
+        if (count < 6) {
+          btn.innerHTML = "Try again";
+
+          if (+input.value == random) {
+            h3.innerHTML = "Congratulations, you won this game";
+            h3.style.color = "green";
+          } else {
+            if (+input.value > random) {
+              h3.innerHTML = `You have entered higher value`;
+              h4.innerHTML = `You have ${6 - count} chances left`;
+            } else {
+              h3.innerHTML = `You have entered lesser value`;
+              h4.innerHTML = `You have ${6 - count} chances left`;
+            }
+          }
+        } else {
+          h4.innerHTML = "Opps! You lost the game";
+          h4.style.color = "red";
+          btn.disabled = true;
+        }
+      };
+
+      btn.addEventListener("click", playGame);
+    </script>
+  </body>
+</html>
